@@ -1,4 +1,4 @@
-import getReposService from "./get-repos-service";
+import getReposService from './get-repos-service';
 
 export default {
   getReposService,
