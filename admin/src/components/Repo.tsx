@@ -18,6 +18,8 @@ import {
 } from '@strapi/design-system';
 
 import { Pencil, Trash, Plus } from '@strapi/icons';
+import ConfirmationDialog from './ConfirmationDialog';
+import BulkActions from './BulkActions';
 
 const COL_COUNT = 5;
 
@@ -26,6 +28,7 @@ const Repo = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [selectedRepos, setSelectedRepos] = useState<any>([]);
   const [alert, setAlert] = useState<any>(undefined);
+  const [deletingRepo, setDeletingRepo] = useState<any>(undefined);
 
   const showAlert = (alert: any) => {
     setAlert(alert);
@@ -79,6 +82,80 @@ const Repo = () => {
     }
   };
 
+  const createAll = async (reposToBecomeProjects: any) => {
+    const response = await axios.post('/github-projects/projects', {
+      repos: reposToBecomeProjects,
+    });
+    if (
+      response &&
+      response.data &&
+      response.data.length === reposToBecomeProjects.length
+    ) {
+      setRepos(
+        repos.map((repo: any) => {
+          const relatedProjectJustCreated = response.data.find(
+            (project: any) => project.repositoryId === repo.id.toString()
+          );
+          return !repo.projectId && relatedProjectJustCreated
+            ? {
+                ...repo,
+                projectId: relatedProjectJustCreated.id,
+              }
+            : repo;
+        })
+      );
+      showAlert({
+        title: 'Project created',
+        message: `Successfully created ${response.data.length} projects`,
+        variant: 'success',
+      });
+    } else {
+      showAlert({
+        title: 'An error occured',
+        message: `At least one project wasn't correctly created. Please check and retry.`,
+        variant: 'danger',
+      });
+    }
+    setSelectedRepos([]);
+  };
+
+  const deleteAll = async (projectIds: any) => {
+    const response = await axios.delete('/github-projects/projects', {
+      params: { projectIds },
+    });
+    if (
+      response &&
+      response.data &&
+      response.data.length === projectIds.length
+    ) {
+      setRepos(
+        repos.map((repo: any) => {
+          const relatedProjectJustDeleted = response.data.find(
+            (project: any) => project.repositoryId === repo.id.toString()
+          );
+          return repo.projectId && relatedProjectJustDeleted
+            ? {
+                ...repo,
+                projectId: null,
+              }
+            : repo;
+        })
+      );
+      showAlert({
+        title: 'Project deleted',
+        message: `Successfully deleted ${response.data.length} projects`,
+        variant: 'success',
+      });
+    } else {
+      showAlert({
+        title: 'An error occured',
+        message: `At least one project wasn't correctly deleted. Please check and retry.`,
+        variant: 'danger',
+      });
+    }
+    setSelectedRepos([]);
+  };
+
   useEffect(() => {
     setLoading(true);
     // fetch data
@@ -112,6 +189,15 @@ const Repo = () => {
             {alert.message}
           </Alert>
         </div>
+      )}
+      {selectedRepos.length > 0 && (
+        <BulkActions
+          selectedRepos={selectedRepos.map((repoId: string) =>
+            repos.find((repo: any) => repo.id === repoId)
+          )}
+          bulkCreateAction={createAll}
+          bulkDeleteAction={deleteAll}
+        />
       )}
       <Table colCount={COL_COUNT} rowCount={repos.length}>
         <Thead>
@@ -189,7 +275,7 @@ const Repo = () => {
                       </Link>
                       <Box paddingLeft={1}>
                         <IconButton
-                          onClick={() => deleteProject(repo)}
+                          onClick={() => setDeletingRepo(repo)}
                           label='Delete'
                           noBorder
                           icon={<Trash />}
@@ -210,6 +296,14 @@ const Repo = () => {
           })}
         </Tbody>
       </Table>
+      {deletingRepo && (
+        <ConfirmationDialog
+          visible={!!deletingRepo}
+          message='Are you sure you want to delete this project?'
+          onClose={() => setDeletingRepo(undefined)}
+          onConfirm={() => deleteProject(deletingRepo)}
+        />
+      )}
     </Box>
   );
 };

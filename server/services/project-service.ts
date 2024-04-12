@@ -23,4 +23,24 @@ export default ({ strapi }) => ({
     );
     return deletedProject;
   },
+  createAll: async (repos: any, userId: string) => {
+    const createPromises = repos.map(
+      async (repo) =>
+        await strapi
+          .plugin('github-projects')
+          .service('projectService')
+          .create(repo, userId)
+    );
+    return Promise.all(createPromises);
+  },
+  deleteAll: async (projectIds: string[]) => {
+    const deletePromises = projectIds.map(
+      async (id) =>
+        await strapi
+          .plugin('github-projects')
+          .service('projectService')
+          .delete(id)
+    );
+    return Promise.all(deletePromises);
+  },
 });

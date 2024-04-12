@@ -28,4 +28,22 @@ exports.default = [
             auth: false,
         },
     },
+    {
+        method: 'POST',
+        path: '/projects',
+        handler: 'projectController.createAll',
+        config: {
+            policies: [],
+            auth: false,
+        },
+    },
+    {
+        method: 'DELETE',
+        path: '/projects',
+        handler: 'projectController.deleteAll',
+        config: {
+            policies: [],
+            auth: false,
+        },
+    },
 ];
