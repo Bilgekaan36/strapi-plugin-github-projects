@@ -38,7 +38,8 @@
     "react": "^17.0.0 || ^18.0.0",
     "react-dom": "^17.0.0 || ^18.0.0",
     "react-router-dom": "^5.2.0",
-    "styled-components": "^5.2.1"
+    "styled-components": "^5.2.1",
+    "@strapi/strapi": "*"
   },
   "engines": {
     "node": ">=18.0.0 <=20.x.x",
