@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import {
   Table,
   Thead,
@@ -21,6 +20,8 @@ import { Pencil, Trash, Plus } from '@strapi/icons';
 import ConfirmationDialog from './ConfirmationDialog';
 import BulkActions from './BulkActions';
 import { useFetchClient } from '@strapi/helper-plugin';
+import getTrad from '../utils/getTrad';
+import { useIntl } from 'react-intl';
 
 const COL_COUNT = 5;
 
@@ -30,6 +31,7 @@ const Repo = () => {
   const [selectedRepos, setSelectedRepos] = useState<any>([]);
   const [alert, setAlert] = useState<any>(undefined);
   const [deletingRepo, setDeletingRepo] = useState<any>(undefined);
+  const { formatMessage } = useIntl();
 
   const client = useFetchClient();
 
@@ -230,16 +232,36 @@ const Repo = () => {
               />
             </Th>
             <Th>
-              <Typography variant='sigma'>Name</Typography>
+              <Typography variant='sigma'>
+                {formatMessage({
+                  id: getTrad('repo.name'),
+                  defaultMessage: 'Name',
+                })}
+              </Typography>
             </Th>
             <Th>
-              <Typography variant='sigma'>Description</Typography>
+              <Typography variant='sigma'>
+                {formatMessage({
+                  id: getTrad('repo.description'),
+                  defaultMessage: 'Description',
+                })}
+              </Typography>
             </Th>
             <Th>
-              <Typography variant='sigma'>Url</Typography>
+              <Typography variant='sigma'>
+                {formatMessage({
+                  id: getTrad('repo.url'),
+                  defaultMessage: 'URL',
+                })}
+              </Typography>
             </Th>
             <Th>
-              <Typography variant='sigma'>Actions</Typography>
+              <Typography variant='sigma'>
+                {formatMessage({
+                  id: getTrad('repo.actions'),
+                  defaultMessage: 'Actions',
+                })}
+              </Typography>
             </Th>
           </Tr>
         </Thead>
