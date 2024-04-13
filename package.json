@@ -46,7 +46,7 @@
     "npm": ">=6.0.0"
   },
   "strapi": {
-    "name": "Github Projects",
+    "name": "github-projects",
     "description": "A Strapi plugin that allows to generate projects from Github repos.",
     "kind": "plugin"
   }
