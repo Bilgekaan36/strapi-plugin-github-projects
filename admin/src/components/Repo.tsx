@@ -20,6 +20,7 @@ import {
 import { Pencil, Trash, Plus } from '@strapi/icons';
 import ConfirmationDialog from './ConfirmationDialog';
 import BulkActions from './BulkActions';
+import { useFetchClient } from '@strapi/helper-plugin';
 
 const COL_COUNT = 5;
 
@@ -30,13 +31,15 @@ const Repo = () => {
   const [alert, setAlert] = useState<any>(undefined);
   const [deletingRepo, setDeletingRepo] = useState<any>(undefined);
 
+  const client = useFetchClient();
+
   const showAlert = (alert: any) => {
     setAlert(alert);
     setTimeout(() => setAlert(undefined), 5000);
   };
 
   const createProject = async (repo: any) => {
-    const response = await axios.post('/github-projects/project', repo);
+    const response = await client.post('/github-projects/project', repo);
     if (response && response.data) {
       setRepos(
         repos.map((item: any) =>
@@ -59,9 +62,7 @@ const Repo = () => {
 
   const deleteProject = async (repo: any) => {
     const { projectId } = repo;
-    const response = await axios.delete(
-      `/github-projects/project/${projectId}`
-    );
+    const response = await client.del(`/github-projects/project/${projectId}`);
     if (response && response.data) {
       setRepos(
         repos.map((item: any) =>
@@ -83,7 +84,7 @@ const Repo = () => {
   };
 
   const createAll = async (reposToBecomeProjects: any) => {
-    const response = await axios.post('/github-projects/projects', {
+    const response = await client.post('/github-projects/projects', {
       repos: reposToBecomeProjects,
     });
     if (
@@ -120,7 +121,7 @@ const Repo = () => {
   };
 
   const deleteAll = async (projectIds: any) => {
-    const response = await axios.delete('/github-projects/projects', {
+    const response = await client.del('/github-projects/projects', {
       params: { projectIds },
     });
     if (
@@ -159,10 +160,10 @@ const Repo = () => {
   useEffect(() => {
     setLoading(true);
     // fetch data
-    axios
+    client
       .get('/github-projects/repos')
-      .then((repos) => setRepos(repos.data))
-      .catch((error) =>
+      .then((repos: any) => setRepos(repos.data))
+      .catch((error: any) =>
         showAlert({
           title: 'Error fetching repositories',
           message: error.toString(),

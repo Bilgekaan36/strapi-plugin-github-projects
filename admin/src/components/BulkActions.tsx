@@ -1,10 +1,13 @@
 import { Box, Flex, Typography, Button } from '@strapi/design-system';
+import ConfirmationDialog from './ConfirmationDialog';
+import { useState } from 'react';
 
 const BulkActions = ({
   selectedRepos,
   bulkCreateAction,
   bulkDeleteAction,
 }: any) => {
+  const [dialogVisible, setDialogVisible] = useState<boolean>(false);
   const reposWithoutProject = selectedRepos.filter(
     (repo: any) => !repo.projectId
   );
@@ -35,13 +38,22 @@ const BulkActions = ({
             <Button
               size='S'
               variant='danger-light'
-              onClick={() => bulkDeleteAction(projectIdsToDelete)}
+              onClick={() => setDialogVisible(true)}
             >
               {`Delete ${projectsToBeDeleted} project(s)`}
             </Button>
           </Box>
         )}
       </Flex>
+      <ConfirmationDialog
+        visible={!!projectsToBeDeleted}
+        message={`Are you sure you want to delete these project(s)?`}
+        onClose={() => setDialogVisible(false)}
+        onConfirm={() => {
+          bulkDeleteAction(projectIdsToDelete);
+          setDialogVisible(false);
+        }}
+      />
     </Box>
   );
 };

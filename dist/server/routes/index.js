@@ -6,8 +6,18 @@ exports.default = [
         path: '/repos',
         handler: 'getReposController.index',
         config: {
-            policies: [],
-            auth: false,
+            policies: [
+                'admin::isAuthenticatedAdmin',
+                {
+                    name: 'admin::hasPermissions',
+                    config: {
+                        actions: [
+                            'plugin::github-projects.repos.read',
+                            'plugin::github-projects.projects.read',
+                        ],
+                    },
+                },
+            ],
         },
     },
     {
@@ -15,8 +25,15 @@ exports.default = [
         path: '/project',
         handler: 'projectController.create',
         config: {
-            policies: [],
-            auth: false,
+            policies: [
+                'admin::isAuthenticatedAdmin',
+                {
+                    name: 'admin::hasPermissions',
+                    config: {
+                        actions: ['plugin::github-projects.projects.create'],
+                    },
+                },
+            ],
         },
     },
     {
@@ -24,8 +41,15 @@ exports.default = [
         path: '/project/:id',
         handler: 'projectController.delete',
         config: {
-            policies: [],
-            auth: false,
+            policies: [
+                'admin::isAuthenticatedAdmin',
+                {
+                    name: 'admin::hasPermissions',
+                    config: {
+                        actions: ['plugin::github-projects.projects.delete'],
+                    },
+                },
+            ],
         },
     },
     {
@@ -33,8 +57,15 @@ exports.default = [
         path: '/projects',
         handler: 'projectController.createAll',
         config: {
-            policies: [],
-            auth: false,
+            policies: [
+                'admin::isAuthenticatedAdmin',
+                {
+                    name: 'admin::hasPermissions',
+                    config: {
+                        actions: ['plugin::github-projects.projects.create'],
+                    },
+                },
+            ],
         },
     },
     {
@@ -42,8 +73,15 @@ exports.default = [
         path: '/projects',
         handler: 'projectController.deleteAll',
         config: {
-            policies: [],
-            auth: false,
+            policies: [
+                'admin::isAuthenticatedAdmin',
+                {
+                    name: 'admin::hasPermissions',
+                    config: {
+                        actions: ['plugin::github-projects.projects.delete'],
+                    },
+                },
+            ],
         },
     },
 ];
