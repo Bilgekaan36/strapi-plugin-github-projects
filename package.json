@@ -1,10 +1,15 @@
 {
   "name": "@bilgekaan36/strapi-plugin-github-projects",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This is the description of the plugin.",
   "license": "MIT",
   "author": {
     "name": "A Strapi developer"
+  },
+  "strapi": {
+    "name": "github-projects",
+    "description": "A Strapi plugin that allows to generate projects from Github repos.",
+    "kind": "plugin"
   },
   "maintainers": [
     {
@@ -44,10 +49,5 @@
   "engines": {
     "node": ">=18.0.0 <=20.x.x",
     "npm": ">=6.0.0"
-  },
-  "strapi": {
-    "name": "github-projects",
-    "description": "A Strapi plugin that allows to generate projects from Github repos.",
-    "kind": "plugin"
   }
 }
