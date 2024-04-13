@@ -39,19 +39,23 @@ const Repo = () => {
   };
 
   const createProject = async (repo: any) => {
-    const response = await client.post('/github-projects/project', repo);
-    if (response && response.data) {
-      setRepos(
-        repos.map((item: any) =>
-          item.id !== repo.id ? item : { ...item, projectId: response.data.id }
-        )
-      );
-      showAlert({
-        title: 'Project created',
-        message: `Successfully created project ${response.data.title}`,
-        variant: 'success',
-      });
-    } else {
+    try {
+      const response = await client.post('/github-projects/project', repo);
+      if (response && response.data) {
+        setRepos(
+          repos.map((item: any) =>
+            item.id !== repo.id
+              ? item
+              : { ...item, projectId: response.data.id }
+          )
+        );
+        showAlert({
+          title: 'Project created',
+          message: `Successfully created project ${response.data.title}`,
+          variant: 'success',
+        });
+      }
+    } catch (error: any) {
       showAlert({
         title: 'An error occured',
         message: 'Error creating the project. Please retry',
@@ -62,19 +66,23 @@ const Repo = () => {
 
   const deleteProject = async (repo: any) => {
     const { projectId } = repo;
-    const response = await client.del(`/github-projects/project/${projectId}`);
-    if (response && response.data) {
-      setRepos(
-        repos.map((item: any) =>
-          item.id !== repo.id ? item : { ...item, projectId: null }
-        )
+    try {
+      const response = await client.del(
+        `/github-projects/project/${projectId}`
       );
-      showAlert({
-        title: 'Project deleted',
-        message: `Successfully deleted project ${response.data.title}`,
-        variant: 'success',
-      });
-    } else {
+      if (response && response.data) {
+        setRepos(
+          repos.map((item: any) =>
+            item.id !== repo.id ? item : { ...item, projectId: null }
+          )
+        );
+        showAlert({
+          title: 'Project deleted',
+          message: `Successfully deleted project ${response.data.title}`,
+          variant: 'success',
+        });
+      }
+    } catch (error: any) {
       showAlert({
         title: 'An error occured',
         message: 'Error deleting the project. Please retry',
@@ -84,33 +92,35 @@ const Repo = () => {
   };
 
   const createAll = async (reposToBecomeProjects: any) => {
-    const response = await client.post('/github-projects/projects', {
-      repos: reposToBecomeProjects,
-    });
-    if (
-      response &&
-      response.data &&
-      response.data.length === reposToBecomeProjects.length
-    ) {
-      setRepos(
-        repos.map((repo: any) => {
-          const relatedProjectJustCreated = response.data.find(
-            (project: any) => project.repositoryId === repo.id.toString()
-          );
-          return !repo.projectId && relatedProjectJustCreated
-            ? {
-                ...repo,
-                projectId: relatedProjectJustCreated.id,
-              }
-            : repo;
-        })
-      );
-      showAlert({
-        title: 'Project created',
-        message: `Successfully created ${response.data.length} projects`,
-        variant: 'success',
+    try {
+      const response = await client.post('/github-projects/projects', {
+        repos: reposToBecomeProjects,
       });
-    } else {
+      if (
+        response &&
+        response.data &&
+        response.data.length === reposToBecomeProjects.length
+      ) {
+        setRepos(
+          repos.map((repo: any) => {
+            const relatedProjectJustCreated = response.data.find(
+              (project: any) => project.repositoryId === repo.id.toString()
+            );
+            return !repo.projectId && relatedProjectJustCreated
+              ? {
+                  ...repo,
+                  projectId: relatedProjectJustCreated.id,
+                }
+              : repo;
+          })
+        );
+        showAlert({
+          title: 'Project created',
+          message: `Successfully created ${response.data.length} projects`,
+          variant: 'success',
+        });
+      }
+    } catch (error: any) {
       showAlert({
         title: 'An error occured',
         message: `At least one project wasn't correctly created. Please check and retry.`,
@@ -121,33 +131,35 @@ const Repo = () => {
   };
 
   const deleteAll = async (projectIds: any) => {
-    const response = await client.del('/github-projects/projects', {
-      params: { projectIds },
-    });
-    if (
-      response &&
-      response.data &&
-      response.data.length === projectIds.length
-    ) {
-      setRepos(
-        repos.map((repo: any) => {
-          const relatedProjectJustDeleted = response.data.find(
-            (project: any) => project.repositoryId === repo.id.toString()
-          );
-          return repo.projectId && relatedProjectJustDeleted
-            ? {
-                ...repo,
-                projectId: null,
-              }
-            : repo;
-        })
-      );
-      showAlert({
-        title: 'Project deleted',
-        message: `Successfully deleted ${response.data.length} projects`,
-        variant: 'success',
+    try {
+      const response = await client.del('/github-projects/projects', {
+        params: { projectIds },
       });
-    } else {
+      if (
+        response &&
+        response.data &&
+        response.data.length === projectIds.length
+      ) {
+        setRepos(
+          repos.map((repo: any) => {
+            const relatedProjectJustDeleted = response.data.find(
+              (project: any) => project.repositoryId === repo.id.toString()
+            );
+            return repo.projectId && relatedProjectJustDeleted
+              ? {
+                  ...repo,
+                  projectId: null,
+                }
+              : repo;
+          })
+        );
+        showAlert({
+          title: 'Project deleted',
+          message: `Successfully deleted ${response.data.length} projects`,
+          variant: 'success',
+        });
+      }
+    } catch (error: any) {
       showAlert({
         title: 'An error occured',
         message: `At least one project wasn't correctly deleted. Please check and retry.`,
