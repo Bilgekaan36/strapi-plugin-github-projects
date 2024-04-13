@@ -33,4 +33,17 @@ export default ({ strapi }: { strapi: Strapi }) => ({
       .deleteAll(projectIds);
     return deletedProjects;
   },
+  find: async (ctx) => {
+    return await strapi
+      .plugin('github-projects')
+      .service('projectService')
+      .find(ctx.query);
+  },
+  findOne: async (ctx) => {
+    const projectId = ctx.params.id;
+    return await strapi
+      .plugin('github-projects')
+      .service('projectService')
+      .findOne(projectId, ctx.query);
+  },
 });

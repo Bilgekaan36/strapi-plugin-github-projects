@@ -126,8 +126,9 @@ const Repo = () => {
         message: `At least one project wasn't correctly created. Please check and retry.`,
         variant: 'danger',
       });
+    } finally {
+      setSelectedRepos([]);
     }
-    setSelectedRepos([]);
   };
 
   const deleteAll = async (projectIds: any) => {
@@ -165,8 +166,9 @@ const Repo = () => {
         message: `At least one project wasn't correctly deleted. Please check and retry.`,
         variant: 'danger',
       });
+    } finally {
+      setSelectedRepos([]);
     }
-    setSelectedRepos([]);
   };
 
   useEffect(() => {
