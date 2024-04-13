@@ -1,16 +1,16 @@
 # "Github Projects" - plugin for Strapi 4
 
 This plugin allows to automatically generate "Projects" from public Github repositories, meant to be then exposed via a public API, e.g. to be shown on a front-end application with the aim to showcase a developer's portfolio.
-It is meant mostly for educational purposes, being built  by Bilgekaan36, so it's not tested in production.
+It is meant mostly for educational purposes, being built by Bilgekaan36, so it's not tested in production.
 
 ## How to install
 
 ```bash
 # yarn
-yarn add @kaan36/strapi-plugin-github-projects
+yarn add @bilgekaan36/strapi-plugin-github-projects
 
 # npm
-npm i @kaan36/strapi-plugin-github-projects
+npm i @bilgekaan36/strapi-plugin-github-projects
 ```
 
 ## Initial configuration

@@ -1,6 +1,6 @@
 {
-  "name": "github-projects",
-  "version": "0.0.0",
+  "name": "@bilgekaan36/strapi-plugin-github-projects",
+  "version": "1.0.0",
   "description": "This is the description of the plugin.",
   "license": "MIT",
   "author": {
