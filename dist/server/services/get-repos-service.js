@@ -10,7 +10,7 @@ const md = (0, markdown_it_1.default)();
 exports.default = ({ strapi }) => ({
     getProjectForRepo: async (repo) => {
         const { id } = repo;
-        const matchingProjects = await strapi.entityService.findMany('plugin::github-projects.project', {
+        const matchingProjects = await strapi.entityService.findMany('plugin::github-projects.repository', {
             filters: {
                 repositoryId: id,
             },

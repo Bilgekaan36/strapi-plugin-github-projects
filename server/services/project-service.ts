@@ -1,7 +1,7 @@
 export default ({ strapi }) => ({
   create: async (repo, userId) => {
     const newProject = await strapi.entityService.create(
-      'plugin::github-projects.project',
+      'plugin::github-projects.repository',
       {
         data: {
           repositoryId: `${repo.id}`,
@@ -21,7 +21,7 @@ export default ({ strapi }) => ({
   },
   delete: async (projectId: string) => {
     const deletedProject = await strapi.entityService.delete(
-      'plugin::github-projects.project',
+      'plugin::github-projects.repository',
       projectId
     );
     return deletedProject;
@@ -48,13 +48,13 @@ export default ({ strapi }) => ({
   },
   find: async (params) => {
     return strapi.entityService.findMany(
-      'plugin::github-projects.project',
+      'plugin::github-projects.repository',
       params
     );
   },
   findOne: async (projectId, params) => {
     return strapi.entityService.findOne(
-      'plugin::github-projects.project',
+      'plugin::github-projects.repository',
       projectId,
       params
     );
