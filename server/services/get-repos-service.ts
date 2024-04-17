@@ -9,7 +9,7 @@ export default ({ strapi }) => ({
   getProjectForRepo: async (repo) => {
     const { id } = repo;
     const matchingProjects = await strapi.entityService.findMany(
-      'plugin::github-projects.repository',
+      'plugin::github-projects.project',
       {
         filters: {
           repositoryId: id,
