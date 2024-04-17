@@ -1,39 +1,39 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
 exports.default = {
-    kind: 'collectionType',
-    collectionName: 'projects',
-    info: {
-        singularName: 'project',
-        pluralName: 'projects',
-        displayName: 'Project',
+  kind: 'collectionType',
+  collectionName: 'projects',
+  info: {
+    singularName: 'project',
+    pluralName: 'projects',
+    displayName: 'Project',
+  },
+  options: {
+    draftAndPublish: false,
+  },
+  attributes: {
+    repositoryId: {
+      type: 'uid',
+      unique: true,
     },
-    options: {
-        draftAndPublish: false,
+    name: {
+      type: 'string',
+      required: true,
+      unique: true,
     },
-    attributes: {
-        repositoryId: {
-            type: 'uid',
-            unique: true,
-        },
-        title: {
-            type: 'string',
-            required: true,
-            unique: true,
-        },
-        description: {
-            type: 'string',
-        },
-        repositoryUrl: {
-            type: 'string',
-        },
-        longDescription: {
-            type: 'richtext',
-        },
-        logo: {
-            type: 'media',
-            allowedTypes: ['images'],
-            multiple: false,
-        },
+    description: {
+      type: 'string',
     },
+    repositoryUrl: {
+      type: 'string',
+    },
+    longDescription: {
+      type: 'richtext',
+    },
+    logo: {
+      type: 'media',
+      allowedTypes: ['images'],
+      multiple: false,
+    },
+  },
 };

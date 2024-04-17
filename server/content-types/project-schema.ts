@@ -14,7 +14,7 @@ export default {
       type: 'uid',
       unique: true,
     },
-    title: {
+    name: {
       type: 'string',
       required: true,
       unique: true,
