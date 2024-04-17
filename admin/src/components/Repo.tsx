@@ -267,7 +267,7 @@ const Repo = () => {
         </Thead>
         <Tbody>
           {repos.map((repo: any) => {
-            const { id, name, shortDescription, url, projectId } = repo;
+            const { id, name, description, url, projectId } = repo;
             return (
               <Tr key={id}>
                 <Td>
@@ -286,9 +286,7 @@ const Repo = () => {
                   <Typography textColor='neutral800'>{name}</Typography>
                 </Td>
                 <Td>
-                  <Typography textColor='neutral800'>
-                    {shortDescription}
-                  </Typography>
+                  <Typography textColor='neutral800'>{description}</Typography>
                 </Td>
                 <Td>
                   <Typography textColor='neutral800'>

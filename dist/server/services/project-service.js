@@ -5,9 +5,12 @@ exports.default = ({ strapi }) => ({
         const newProject = await strapi.entityService.create('plugin::github-projects.project', {
             data: {
                 repositoryId: `${repo.id}`,
-                title: repo.name,
-                shortDescription: repo.shortDescription,
-                repositoryUrl: repo.url,
+                name: repo.name,
+                description: repo.shortDescription,
+                link: {
+                    href: repo.url,
+                    label: 'github.com',
+                },
                 longDescription: repo.longDescription,
                 createdBy: userId,
                 updatedBy: userId,

@@ -21,7 +21,7 @@ exports.default = {
             required: true,
             unique: true,
         },
-        shortDescription: {
+        description: {
             type: 'string',
         },
         repositoryUrl: {
@@ -30,7 +30,7 @@ exports.default = {
         longDescription: {
             type: 'richtext',
         },
-        coverImage: {
+        logo: {
             type: 'media',
             allowedTypes: ['images'],
             multiple: false,

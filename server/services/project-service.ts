@@ -5,9 +5,12 @@ export default ({ strapi }) => ({
       {
         data: {
           repositoryId: `${repo.id}`,
-          title: repo.name,
-          shortDescription: repo.shortDescription,
-          repositoryUrl: repo.url,
+          name: repo.name,
+          description: repo.shortDescription,
+          link: {
+            href: repo.url,
+            label: 'github.com',
+          },
           longDescription: repo.longDescription,
           createdBy: userId,
           updatedBy: userId,

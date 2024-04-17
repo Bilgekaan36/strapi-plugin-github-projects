@@ -43,7 +43,7 @@ exports.default = ({ strapi }) => ({
             const repo = {
                 id,
                 name,
-                shortDescription: description,
+                description,
                 url: html_url,
                 longDescription,
             };
