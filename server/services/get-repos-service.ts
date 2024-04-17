@@ -1,6 +1,6 @@
 'use strict';
 
-const { request } = require('@octokit/request');
+import { request } from '@octokit/request';
 import axios from 'axios';
 import markdownit from 'markdown-it';
 const md = markdownit();

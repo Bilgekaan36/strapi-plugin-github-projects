@@ -1,15 +1,10 @@
 {
   "name": "@bilgekaan36/strapi-plugin-github-projects",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "This is the description of the plugin.",
   "license": "MIT",
   "author": {
     "name": "A Strapi developer"
-  },
-  "strapi": {
-    "name": "github-projects",
-    "description": "A Strapi plugin that allows to generate projects from Github repos.",
-    "kind": "plugin"
   },
   "maintainers": [
     {
@@ -25,6 +20,7 @@
     "@strapi/design-system": "^1.6.3",
     "@strapi/helper-plugin": "^4.6.0",
     "@strapi/icons": "^1.6.3",
+    "markdown-it": "^14.1.0",
     "prop-types": "^15.7.2"
   },
   "devDependencies": {
@@ -40,14 +36,19 @@
     "typescript": "5.0.4"
   },
   "peerDependencies": {
+    "@strapi/strapi": "*",
     "react": "^17.0.0 || ^18.0.0",
     "react-dom": "^17.0.0 || ^18.0.0",
     "react-router-dom": "^5.2.0",
-    "styled-components": "^5.2.1",
-    "@strapi/strapi": "*"
+    "styled-components": "^5.2.1"
   },
   "engines": {
     "node": ">=18.0.0 <=20.x.x",
     "npm": ">=6.0.0"
+  },
+  "strapi": {
+    "name": "github-projects",
+    "description": "A Strapi plugin that allows to generate projects from Github repos.",
+    "kind": "plugin"
   }
 }
