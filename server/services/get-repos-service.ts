@@ -26,13 +26,10 @@ export default ({ strapi }) => ({
       },
       type: 'public',
     });
-    // id, name, shortDescription, url, longDescription
-    // https://raw.githubusercontent.com/artcoded-net/next-strapi-blog/main/README.md
 
     return Promise.all(
       result.data.map(async (item) => {
         const { id, name, description, html_url, owner, default_branch } = item;
-        // const readmeUrl = `https://raw.githubusercontent.com/${owner.login}/${name}/${default_branch}/README.md`;
         let longDescription = '';
         try {
           const readmeUrl = `https://raw.githubusercontent.com/${owner.login}/${name}/${default_branch}/README.md`;
