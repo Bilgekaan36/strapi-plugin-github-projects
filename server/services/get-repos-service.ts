@@ -25,6 +25,7 @@ export default ({ strapi }) => ({
         authorization: `token ${process.env.GITHUB_TOKEN}`,
       },
       type: 'public',
+      per_page: 100,
     });
 
     return Promise.all(
